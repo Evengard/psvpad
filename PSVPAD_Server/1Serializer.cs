@@ -92,6 +92,8 @@ namespace PSV_Server
             public bool B12Btn => (_parent.keyData & (uint)PSVKeyType.B12) != 0;
             public bool Front_Left_Touch_B13Btn => (_parent.keyData & (uint)PSVKeyType.FrontLeftB13) != 0;
             public bool Front_Right_Touch_B14Btn => (_parent.keyData & (uint)PSVKeyType.FrontRightB14) != 0;
+            public bool Front_Left_Touch_All => Front_Left_Touch_B13Btn || B1Btn || B2Btn || B3Btn || B7Btn || B8Btn || B9Btn;
+            public bool Front_Right_Touch_All => Front_Right_Touch_B14Btn || B4Btn || B5Btn || B6Btn || B10Btn || B11Btn || B12Btn;
             public bool Rear_Left_Touch => (_parent.rearTouch & (uint)PSVRearTouch.LEFT_TOUCH) != 0;
             public bool Rear_Right_Touch => (_parent.rearTouch & (uint)PSVRearTouch.RIGHT_TOUCH) != 0;
         }

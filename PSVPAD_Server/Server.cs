@@ -468,8 +468,8 @@ namespace PSV_Server
                         psvpad.SetButtonState(Xbox360Button.LeftShoulder, this.data.KeyStates.Button_L);
                         psvpad.SetButtonState(Xbox360Button.RightShoulder, this.data.KeyStates.Button_R);
 
-                        psvpad.SetSliderValue(Xbox360Slider.LeftTrigger, Convert.ToByte((this.data.KeyStates.Front_Left_Touch_B13Btn ? 1u : 0u) * 255u));
-                        psvpad.SetSliderValue(Xbox360Slider.RightTrigger, Convert.ToByte((this.data.KeyStates.Front_Right_Touch_B14Btn ? 1u : 0u) * 255u));
+                        psvpad.SetSliderValue(Xbox360Slider.LeftTrigger, Convert.ToByte((this.data.KeyStates.Front_Left_Touch_All ? 1u : 0u) * 255u));
+                        psvpad.SetSliderValue(Xbox360Slider.RightTrigger, Convert.ToByte((this.data.KeyStates.Front_Right_Touch_All ? 1u : 0u) * 255u));
 
                         psvpad.SetButtonState(Xbox360Button.LeftThumb, data.KeyStates.Rear_Left_Touch);
                         psvpad.SetButtonState(Xbox360Button.RightThumb, data.KeyStates.Rear_Right_Touch);
@@ -527,8 +527,8 @@ namespace PSV_Server
                         psvpad.SetButtonState(DualShock4Button.ShoulderLeft, this.data.KeyStates.Button_L);
                         psvpad.SetButtonState(DualShock4Button.ShoulderRight, this.data.KeyStates.Button_R);
 
-                        psvpad.SetSliderValue(DualShock4Slider.LeftTrigger, Convert.ToByte((this.data.KeyStates.Front_Left_Touch_B13Btn ? 1u : 0u) * 255u));
-                        psvpad.SetSliderValue(DualShock4Slider.RightTrigger, Convert.ToByte((this.data.KeyStates.Front_Right_Touch_B14Btn ? 1u : 0u) * 255u));
+                        psvpad.SetSliderValue(DualShock4Slider.LeftTrigger, Convert.ToByte((this.data.KeyStates.Front_Left_Touch_All ? 1u : 0u) * 255u));
+                        psvpad.SetSliderValue(DualShock4Slider.RightTrigger, Convert.ToByte((this.data.KeyStates.Front_Right_Touch_All ? 1u : 0u) * 255u));
 
                         psvpad.SetButtonState(DualShock4Button.ThumbLeft, data.KeyStates.Rear_Left_Touch);
                         psvpad.SetButtonState(DualShock4Button.ThumbRight, data.KeyStates.Rear_Right_Touch);
