@@ -29,10 +29,13 @@ namespace PSV_Server
     {
         private Dictionary<uint, string> keyboardBinds = new Dictionary<uint, string>();
         private Dictionary<uint, string> mouseBinds = new Dictionary<uint, string>();
-        private string[] clientIP = new string[2];
-        private bool[] activeClient = new bool[2];
-        private TcpClient[] tcpClients = new TcpClient[2];
-        private Stopwatch[] clientTimeOutSW = new Stopwatch[2];
+
+        private static int numberOfSimultaneousConnects = 1;
+        private string[] clientIP = new string[numberOfSimultaneousConnects];
+        private bool[] activeClient = new bool[numberOfSimultaneousConnects];
+        private TcpClient[] tcpClients = new TcpClient[numberOfSimultaneousConnects];
+        private Stopwatch[] clientTimeOutSW = new Stopwatch[numberOfSimultaneousConnects];
+        private IXbox360Controller[] clientPsvpads = new IXbox360Controller[numberOfSimultaneousConnects];
         private InputEmulation Input = new InputEmulation();
         public Configuration config = new Configuration();
         private ASCIIEncoding encoder = new ASCIIEncoding();
@@ -45,8 +48,6 @@ namespace PSV_Server
         public InputData data;
         public InputData previousInput;
         private bool keyRepeat;
-
-        private IXbox360Controller psvpad;
 
         public List<IPAddress> localBroadcasts = null;
 
@@ -313,7 +314,7 @@ namespace PSV_Server
                     {
                         UdpClient udpClient = new UdpClient();
                         //udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, 11111));
-                        byte[] sendbuf = Encoding.ASCII.GetBytes("PSVPAD_1.5.1");
+                        byte[] sendbuf = Encoding.ASCII.GetBytes("PSVPAD_1.3.0");
                         foreach (var localBroadcast in localBroadcasts)
                         {
                             udpClient.Send(sendbuf, sendbuf.Length, new IPEndPoint(localBroadcast, 11111));
@@ -346,6 +347,8 @@ namespace PSV_Server
             this.tcpClients[clientID] = null;
             this.clientTimeOutSW[clientID] = null;
             this.clientIP[clientID] = "";
+            this.clientPsvpads[clientID].Disconnect();
+            this.clientPsvpads[clientID] = null;
             client.Close();
         }
 
@@ -360,7 +363,8 @@ namespace PSV_Server
             byte[] numArray = new byte[256];
             Console.WriteLine("Connected to Client...");
             var vigem = new ViGEmClient();
-            this.psvpad = vigem.CreateXbox360Controller();
+            var psvpad = vigem.CreateXbox360Controller();
+            clientPsvpads[index] = psvpad;
             psvpad.Connect();
             psvpad.AutoSubmitReport = false;
             psvpad.ResetReport();

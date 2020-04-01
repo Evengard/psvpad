@@ -189,7 +189,7 @@ namespace PSVPAD
 				IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, 11111);
 				byte[] bytes = listener.Receive(ref groupEP);
 				var result = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
-				if (result == "PSVPAD_1.5.1")
+				if (result == "PSVPAD_1.3.0")
 				{
 					Console.WriteLine(Encoding.ASCII.GetString(bytes, 0, bytes.Length));
 					Console.WriteLine(groupEP.Address.ToString());
