@@ -4,8 +4,11 @@
 // MVID: 99D27C4D-1970-4CC0-8120-423D0430A7B5
 // Assembly location: I:\dev\psvpad_complete\PSVPAD Server\PSV_Server.exe
 
+//#define DUALSHOCK
+
 using Nefarius.ViGEm.Client;
 using Nefarius.ViGEm.Client.Targets;
+using Nefarius.ViGEm.Client.Targets.DualShock4;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
 using System;
 using System.Collections;
@@ -35,7 +38,11 @@ namespace PSV_Server
         private bool[] activeClient = new bool[numberOfSimultaneousConnects];
         private TcpClient[] tcpClients = new TcpClient[numberOfSimultaneousConnects];
         private Stopwatch[] clientTimeOutSW = new Stopwatch[numberOfSimultaneousConnects];
+#if !DUALSHOCK
         private IXbox360Controller[] clientPsvpads = new IXbox360Controller[numberOfSimultaneousConnects];
+#else
+        private IDualShock4Controller[] clientPsvpads = new IDualShock4Controller[numberOfSimultaneousConnects];
+#endif
         private InputEmulation Input = new InputEmulation();
         public Configuration config = new Configuration();
         private ASCIIEncoding encoder = new ASCIIEncoding();
@@ -347,8 +354,9 @@ namespace PSV_Server
             this.tcpClients[clientID] = null;
             this.clientTimeOutSW[clientID] = null;
             this.clientIP[clientID] = "";
-            this.clientPsvpads[clientID].Disconnect();
-            this.clientPsvpads[clientID] = null;
+            // Commenting out for optimizing reconnection and avoid a "replug"
+            //this.clientPsvpads[clientID].Disconnect();
+            //this.clientPsvpads[clientID] = null;
             client.Close();
         }
 
@@ -360,13 +368,21 @@ namespace PSV_Server
             NetworkStream stream = client1.GetStream();
             string str = ((IPEndPoint)client1.Client.RemoteEndPoint).Address.ToString();
             stream.WriteTimeout = 200;
+            stream.ReadTimeout = (int)this.config.clientTimeOut;
             byte[] numArray = new byte[256];
             Console.WriteLine("Connected to Client...");
             var vigem = new ViGEmClient();
-            var psvpad = vigem.CreateXbox360Controller();
-            clientPsvpads[index] = psvpad;
-            psvpad.Connect();
+#if !DUALSHOCK
+            var psvpad = clientPsvpads[index] == null ?vigem.CreateXbox360Controller() : clientPsvpads[index];
+#else
+            var psvpad = clientPsvpads[index] == null ? vigem.CreateDualShock4Controller() : clientPsvpads[index];
+#endif
             psvpad.AutoSubmitReport = false;
+            if (clientPsvpads[index] == null)
+            {
+                psvpad.Connect();
+            }
+            clientPsvpads[index] = psvpad;
             psvpad.ResetReport();
             while (Program.isRunning)
             {
@@ -394,12 +410,14 @@ namespace PSV_Server
                 }
                 if (num != 0)
                 {
-                    this.clientTimeOutSW[index].Reset();
-                    this.clientTimeOutSW[index].Start();
-                    this.SendConfirmationToClient(stream);
                     this.data = this.toInputData(numArray);
                     if (this.data != null)
                     {
+                        this.clientTimeOutSW[index].Reset();
+                        this.clientTimeOutSW[index].Start();
+                        this.SendConfirmationToClient(stream);
+
+#if !DUALSHOCK
                         psvpad.SetButtonState(Xbox360Button.Left, data.KeyStates.Button_DLeft);
                         psvpad.SetButtonState(Xbox360Button.Right, data.KeyStates.Button_DRight);
                         psvpad.SetButtonState(Xbox360Button.Up, data.KeyStates.Button_DUp);
@@ -413,17 +431,108 @@ namespace PSV_Server
                         psvpad.SetButtonState(Xbox360Button.Start, data.KeyStates.Button_Start);
                         psvpad.SetButtonState(Xbox360Button.Back, data.KeyStates.Button_Select);
 
-                        psvpad.SetAxisValue(Xbox360Axis.LeftThumbX, (short)(this.data.lx * 32767f));
-                        psvpad.SetAxisValue(Xbox360Axis.LeftThumbY, (short)(-this.data.ly * 32767f));
+                        if (this.data.lx < 0)
+                        {
+                            this.data.lx *= 1.011709628410182f;
+                        }
 
-                        psvpad.SetAxisValue(Xbox360Axis.RightThumbX, (short)(this.data.rx * 32767f));
-                        psvpad.SetAxisValue(Xbox360Axis.RightThumbY, (short)(-this.data.ry * 32767f));
+                        if (this.data.ly < 0)
+                        {
+                            this.data.ly *= 1.011709628410182f;
+                        }
+                        if (this.data.rx < 0)
+                        {
+                            this.data.rx *= 1.011709628410182f;
+                        }
+                        if (this.data.ry < 0)
+                        {
+                            this.data.ry *= 1.011709628410182f;
+                        }
+
+                        var lx = Convert.ToInt32(this.data.lx * 32768f);
+                        lx = lx > 32767 ? 32767 : lx;
+                        var ly = Convert.ToInt32(-this.data.ly * 32768f);
+                        ly = ly > 32767 ? 32767 : ly;
+
+                        var rx = Convert.ToInt32(this.data.rx * 32768f);
+                        rx = rx > 32767 ? 32767 : rx;
+                        var ry = Convert.ToInt32(-this.data.ry * 32768f);
+                        ry = ry > 32767 ? 32767 : ry;
+
+                        psvpad.SetAxisValue(Xbox360Axis.LeftThumbX, (short)lx);
+                        psvpad.SetAxisValue(Xbox360Axis.LeftThumbY, (short)ly);
+
+                        psvpad.SetAxisValue(Xbox360Axis.RightThumbX, (short)rx);
+                        psvpad.SetAxisValue(Xbox360Axis.RightThumbY, (short)ry);
 
                         psvpad.SetButtonState(Xbox360Button.LeftShoulder, this.data.KeyStates.Button_L);
                         psvpad.SetButtonState(Xbox360Button.RightShoulder, this.data.KeyStates.Button_R);
 
                         psvpad.SetSliderValue(Xbox360Slider.LeftTrigger, Convert.ToByte((this.data.KeyStates.Front_Left_Touch_B13Btn ? 1u : 0u) * 255u));
                         psvpad.SetSliderValue(Xbox360Slider.RightTrigger, Convert.ToByte((this.data.KeyStates.Front_Right_Touch_B14Btn ? 1u : 0u) * 255u));
+
+                        psvpad.SetButtonState(Xbox360Button.LeftThumb, data.KeyStates.Rear_Left_Touch);
+                        psvpad.SetButtonState(Xbox360Button.RightThumb, data.KeyStates.Rear_Right_Touch);
+#else
+
+                        psvpad.SetButtonState(DualShock4Button.Square, data.KeyStates.Button_Square);
+                        psvpad.SetButtonState(DualShock4Button.Triangle, data.KeyStates.Button_Triangle);
+                        psvpad.SetButtonState(DualShock4Button.Cross, data.KeyStates.Button_Cross);
+                        psvpad.SetButtonState(DualShock4Button.Circle, data.KeyStates.Button_Circle);
+
+                        psvpad.SetButtonState(DualShock4Button.Options, data.KeyStates.Button_Start);
+                        psvpad.SetButtonState(DualShock4Button.Share, data.KeyStates.Button_Select);
+
+                        var dpad = DualShock4DPadDirection.None;
+                        if (data.KeyStates.Button_DUp && data.KeyStates.Button_DLeft)
+                        {
+                            dpad = DualShock4DPadDirection.Northwest;
+                        }
+                        else if (data.KeyStates.Button_DUp && data.KeyStates.Button_DRight)
+                        {
+                            dpad = DualShock4DPadDirection.Northeast;
+                        }
+                        else if (data.KeyStates.Button_DDown && data.KeyStates.Button_DLeft)
+                        {
+                            dpad = DualShock4DPadDirection.Southwest;
+                        }
+                        else if (data.KeyStates.Button_DDown && data.KeyStates.Button_DRight)
+                        {
+                            dpad = DualShock4DPadDirection.Southeast;
+                        }
+                        else if (data.KeyStates.Button_DUp)
+                        {
+                            dpad = DualShock4DPadDirection.North;
+                        }
+                        else if (data.KeyStates.Button_DDown)
+                        {
+                            dpad = DualShock4DPadDirection.South;
+                        }
+                        else if (data.KeyStates.Button_DLeft)
+                        {
+                            dpad = DualShock4DPadDirection.West;
+                        }
+                        else if (data.KeyStates.Button_DRight)
+                        {
+                            dpad = DualShock4DPadDirection.East;
+                        }
+                        psvpad.SetDPadDirection(dpad);
+
+                        psvpad.SetAxisValue(DualShock4Axis.LeftThumbX, (byte)((this.data.lx * 128f) + 127));
+                        psvpad.SetAxisValue(DualShock4Axis.LeftThumbY, (byte)((this.data.ly * 128f) + 127));
+
+                        psvpad.SetAxisValue(DualShock4Axis.RightThumbX, (byte)((this.data.rx * 128f) + 127));
+                        psvpad.SetAxisValue(DualShock4Axis.RightThumbY, (byte)((this.data.ry * 128f) + 127));
+
+                        psvpad.SetButtonState(DualShock4Button.ShoulderLeft, this.data.KeyStates.Button_L);
+                        psvpad.SetButtonState(DualShock4Button.ShoulderRight, this.data.KeyStates.Button_R);
+
+                        psvpad.SetSliderValue(DualShock4Slider.LeftTrigger, Convert.ToByte((this.data.KeyStates.Front_Left_Touch_B13Btn ? 1u : 0u) * 255u));
+                        psvpad.SetSliderValue(DualShock4Slider.RightTrigger, Convert.ToByte((this.data.KeyStates.Front_Right_Touch_B14Btn ? 1u : 0u) * 255u));
+
+                        psvpad.SetButtonState(DualShock4Button.ThumbLeft, data.KeyStates.Rear_Left_Touch);
+                        psvpad.SetButtonState(DualShock4Button.ThumbRight, data.KeyStates.Rear_Right_Touch);
+#endif
 
                         psvpad.SubmitReport();
 
