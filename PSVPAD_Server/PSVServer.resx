@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Icon" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABNTeXN0ZW0uRHJhd2luZy5JY29uAgAAAAhJY29uRGF0YQhJY29uU2l6ZQcEAhNTeXN0ZW0uRHJhd2luZy5TaXplAgAAAAIAAAAJAwAAAAX8////E1N5c3RlbS5EcmF3aW5nLlNpemUCAAAABXdpZHRoBmhlaWdodAAACAgCAAAAAAAAAAAAAAAPAwAAADYVAAACAAABAAIAEBAAAAAAIABoBAAAJgAAACAgAAAAACAAqBAAAI4EAAAoAAAAEAAAACAAAAABACAAAAAAAEAEAAAAAAAAAAAAAAAAAAAAAAAA////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wEAAABBAAAAvwAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAB/////Af///wH///8BCAgIvw8PD/8yMjL/cnJy/2RkZP9kZGT/cnJy/4CAgP8g31n/YJ9z/2RkZP8GBgb/Dw8P/wAAAEH///8B////AQ8PD/8iIiL/MjIy/3Jycv9kZGT/SUlJ/2RkZP+AgID/YI9u/3Jycv9WVlb/Dw8P/yIiIv8AAAB/////Af///wEAAAD/EBAQ/zIyMv9ycnL/ZGRk/0lJSf9gYGD/QEBA/zBfPv9AQED/ZGRk/wAAAP8QEBD/AAAAf////wH///8BEBAQ/yAgIP8kJCT/VlZW/0lJSf9JSUn/cHBw/2BgYP9Ab07/YGBg/2RkZP8QEBD/ICAg/wAAAH////8B////ASAgIP8AAAD/JCQk/0lJSf9JSUn/SUlJ/0lJSf9JSUn/NmVE/0lJSf9JSUn/AAAA/wAAAP9AQEB/////Af///wGAgIB/gICAfwAAAH8AAAB/AAAAfwoKCr8gICD/AAAAfwAAAH8AAAB/AAAAf0BAQH+AgIB/gICAQf///wH///8B////Af///wH///8B////AS8vL/8pKSm/QEBAf////wEvLy//////AR4eHkEeHh5B////Af///wH///8B////Af///wH///8B////Af///wFAQEBBQEBAfzc3N/8vLy//Nzc3/x4eHn83Nzf/QEBAQf///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BQEBAf0BAQH9AQEC/Nzc3/y8vL/////8B////Af///wEgICB/////Af///wEgICB/ICAgf////wEgICB/QEBAQf///wEgICB/QEBAfyEhIYX///8BAAAAQQAAAH8gICB/EBAQ/wAAAH8MDAxPCgoKTQAAAL9AQEAZCAgIkwQEBIn///8BICAg/wAAAH8FBQWLFRUVvxYWFsMgICD/AAAAfyAgIP9AQEAJAAAAfwAAAL8iIiKJAAAAf0BAQEkXFxfH////ASAgIP////8BCQkJlwICAscEBASJICAg/wAAAH8AAAB/AAAAfwAAAEEgICB/ICAgfyAgIH////8BAAAAQUBAQL8gICB/AAAAfwAAAEEAAABBQEBAQQAAAH8gICB/////Af///wH///8B////Af///wH///8B////Af///wFAQEBBQEBAQf///wH///8B////Af///wH///8B////AQAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8oAAAAIAAAAEAAAAABACAAAAAAAIAQAAAAAAAAAAAAAAAAAAAAAAAA////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BAAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/////Af///wH///8B////Af///wH///8B////Af///wH///8BAAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/////wH///8B////Af///wH///8B////Af///wEAAAD/AAAA/wAAAP8AAAD/gICA/4CAgP+AgID/gICA/4CAgP+AgID/gICA/4CAgP+AgID/gICA/4CAgP8A/0z/AP9M/wD/TP+AgID/gICA/4CAgP8AAAD/AAAA/wAAAP8AAAD/////Af///wH///8B////Af///wH///8BAAAA/xkZGf8mJib/GRkZ/wAAAP9JSUn/SUlJ/4CAgP9JSUn/SUlJ/0lJSf9JSUn/SUlJ/4CAgP+AgID/gICA/4CAgP8A/0z/gICA/4CAgP9JSUn/SUlJ/wAAAP8ZGRn/JiYm/xkZGf8AAAD/////Af///wH///8B////Af///wEAAAD/JiYm/yYmJv8mJib/AAAA/4CAgP9JSUn/gICA/0lJSf+AgID/SUlJ/0lJSf9JSUn/SUlJ/4CAgP+AgID/gICA/4CAgP+AgID/SUlJ/0lJSf9JSUn/AAAA/yYmJv8mJib/JiYm/wAAAP////8B////Af///wH///8B////AQAAAP8ZGRn/JiYm/xkZGf8AAAD/SUlJ/4CAgP+AgID/gICA/0lJSf9JSUn/SUlJ/4CAgP+AgID/gICA/4CAgP+AgID/ALw4/4CAgP+AgID/gICA/0lJSf8AAAD/GRkZ/yYmJv8ZGRn/AAAA/////wH///8B////Af///wH///8BAAAA/wAAAP8AAAD/AAAA/wAAAP+AgID/SUlJ/4CAgP9JSUn/gICA/0lJSf9JSUn/gICA/0BAQP9AQED/QEBA/0BAQP9AQED/QEBA/0BAQP+AgID/SUlJ/wAAAP8AAAD/AAAA/wAAAP8AAAD/////Af///wH///8B////Af///wEAAAD/AAAA/0BAQP8AAAD/AAAA/0lJSf+AgID/gICA/4CAgP9JSUn/SUlJ/0lJSf+AgID/QEBA/0BAQP9AQED/QEBA/wC8OP9AQED/QEBA/4CAgP9JSUn/AAAA/wAAAP9AQED/AAAA/wAAAP////8B////Af///wH///8B////AQAAAP9AQED/AAAA/0BAQP8AAAD/SUlJ/0lJSf+AgID/SUlJ/0lJSf9JSUn/SUlJ/4CAgP9AQED/QEBA/0BAQP9AQED/QEBA/0BAQP9AQED/gICA/0lJSf8AAAD/QEBA/wAAAP9AQED/AAAA/////wH///8B////Af///wH///8BAAAA/wAAAP9AQED/AAAA/wAAAP9JSUn/SUlJ/0lJSf9JSUn/SUlJ/0lJSf9JSUn/gICA/4CAgP+AgID/gICA/4CAgP8AvDj/gICA/4CAgP+AgID/SUlJ/wAAAP8AAAD/QEBA/wAAAP8AAAD/////Af///wH///8B////Af///wEAAAD/AAAA/wAAAP8AAAD/AAAA/0lJSf9JSUn/SUlJ/0lJSf9JSUn/SUlJ/0lJSf9JSUn/SUlJ/0lJSf9JSUn/SUlJ/0lJSf9JSUn/SUlJ/0lJSf9JSUn/AAAA/wAAAP8AAAD/AAAA/wAAAP////8B////Af///wH///8B////AYCAgP8AAAD/AAAA/wAAAP8AAAD/SUlJ/0lJSf9JSUn/SUlJ/0lJSf9JSUn/SUlJ/0lJSf9JSUn/SUlJ/0lJSf9JSUn/ALw4/0lJSf9JSUn/SUlJ/0lJSf8AAAD/AAAA/wAAAP8AAAD/gICA/////wH///8B////Af///wH///8BgICA/4CAgP+AgID/gICA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP+AgID/gICA/4CAgP+AgID/////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////AR4eHv9AQED/QEBA/////wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BHh4e/x4eHv////8BHh4e/0BAQP////8B////Af///wEeHh7/QEBA/////wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wFAQED/QEBA/x4eHv9AQED/QEBA/////wH///8B////AR4eHv9AQED/////Af///wH///8BHh4e/x4eHv////8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wFAQED/QEBA/0BAQP9AQED/Hh4e/x4eHv8eHh7/QEBA/0BAQP////8B////AR4eHv9AQED/QEBA/////wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////AUBAQP9AQED/QEBA/0BAQP9AQED/Hh4e/x4eHv8eHh7/QEBA/0BAQP////8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BQEBA/0BAQP9AQED/QEBA/0BAQP9AQED/Hh4e/x4eHv8eHh7/////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wFAQED/////Af///wH///8BQEBA/0BAQP9AQED/QEBA/0BAQP////8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wFAQED/QEBA/////wH///8B////Af///wH///8B////Af///wH///8B////AQAAAP9AQED/////Af///wH///8B////AUBAQP8AAAD/AAAA/0BAQP////8B////AUBAQP8AAAD/QEBA/////wH///8B////AUBAQP8AAAD/////AUBAQP9AQEATAAAA/////wH///8B////AQAAAP8AAAD/AAAA/wAAAP9AQED/AAAA/0BAQP////8B////Af///wFAQEA9AAAA/0BAQBP///8BAAAA/0BAQC////8BAAAA/0BAQEsAAAD/////Af///wH///8BQEBA/wAAAP////8B////Af///wEAAAD/QEBA/////wFAQEATAAAA/wAAAP9AQED/////AQAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/////wH///8BQEBAIwAAAP8AAAD/QEBAE0BAQCMAAAD/////AQAAAP9AQEAj////Af///wFAQED/AAAA/wAAAP8AAAD/AAAA/0BAQC8AAAD/AAAA/wAAAP9AQED/AAAA/0BAQP////8BAAAA/wAAAP9AQED/////AUBAQBMAAAD/////AQAAAP8AAAD/QEBA/0BAQBP///8BAAAA/0BAQP////8BQEBA/wAAAP////8B////AUBAQP8AAAD/////Af///wEAAAD/QEBALwAAAP9AQEAjAAAA/0BAQCMAAAD/QEBA/////wEAAAD/AAAA/0BAQP////8BQEBAEwAAAP////8BAAAA/////wFAQEATAAAA/////wEAAAD/QEBAI////wFAQEAjAAAA/////wH///8BQEBA/wAAAP////8B////AQAAAP9AQEAvAAAA/wAAAP8AAAD/////AQAAAP9AQED/////AQAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/////wFAQED/AAAA/wAAAP9AQED/QEBA/wAAAP////8B////Af///wEAAAD/QEBA/////wFAQED/AAAA/wAAAP8AAAD/AAAA/////wH///8BAAAA/0BAQP////8BAAAA/wAAAP8AAAD/QEBA/////wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wFAQED/QEBA/////wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wFAQED/QEBA/////wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACw==</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>This software is still under development and as such incomplete and potencially buggy. If you encounter any bugs or are having issues running the software or installing the companion app on the vita please feel free to contact the dev team (me) at: AJ_Moore@UnorthodoxGameStudios.co.uk</value>
+  </data>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>Welcome to PSV-Pad Server Software. This software is used to act as a link between your Vita and PC using PSV-PAD. The IP Address listed below is the IP address that is used to connect to the server. A tutorial can be found in the help section on the vita app. This app is currently in alpha(expect bugs).</value>
+  </data>
+  <data name="richTextBox2.Text" xml:space="preserve">
+    <value>PSVPAD 1.3.0 Help!! 
+
+***PLEASE NOTE***
+-The software is still in the development and so you might find the help pages are either incomplete or lacking in areas.
+
+-Known issues bugs and solutions can be found at the bottom of this page.
+
+-The installation instructions and change log can also be found in "instructions.txt" included with this software
+*************************************************************************
+
+CONTENTS:
+- Installation Instructions
+- Creating an App Key Ring File  
+- Basic Operation Instructions
+- UI Overview 
+- Change Log 
+- Known Issues/ FAQ 
+- Credit 
+- Contact
+
+*************************************************************************
+
+*************************************************************************
+		Installation Instructions
+*************************************************************************
+
+NOTE: This software is currently only avilable for WINDOWS 7 &amp; WINDOWS 8.1
+* The software may work on earlier windows operating systems but is untested.
+
+Instructions!! 
+============================================
+---------------------------------------------------------------------
+Things you Need
+---------------------------------------------------------------------
+-Playstation Mobile Studio (free)  
+-PSM Dev (Companion App for vita)
+-Playstation Mobile Developer Licence REQUIRED (Currently Free)  
+-VJoy Driver (Included with software) 
+-PSV_Server (Included)
+-PSVPAD PSM Studio solution. (Included)
+----------------------------------------------------------------------
+Note:
+*This application will require both your vita and pc to be connected to the same network.
+*It does work over adhoc connections but is not a neccessary 
+
+============================================
+Useful Links
+============================================
+*Register for a developers licence here: https://psm.playstation.net/portal/en/index.html#register 
+*Download the psvita PSM Dev app here (NOTE: YOU WANT TO NAVIGATE TO THIS ADDRESS ON YOUR VITA TO DOWNLOAD THE APP): https://psm.playstation.net/static/general/all/devassistant.html
+	NOTE: You want the one marked for "PSM SDK" NOT the unity app. 
+	ADDITIONAL NOTE: The app is not avilable on the store so you will need to browse to the address above on your vita to download it.
+*Download Playstation Mobile Studio Here: https://psm.playstation.net/static/general/all/en/psm_sdk.html#sdk
+	
+============================================
+Tutorial
+============================================
+1. Register as a developer at (if you haven't already): https://psm.playstation.net/portal/en/index.html#register 
+
+2. Download both the Playstation Mobile Studio and It's companion app (PSM Dev assistant) on your vita, Install the VJoy Driver Provided by Running VJoySetup_DriverOnly.exe.
+
+3. Extract PSVPAD to somewhere useful, where you can find it. 
+
+4. Create an App Ring Key File using the PSM Publisher Utility-&gt; Instuctions at end of this document.
+
+5. Once an App Ring Key File has been created, using the PSM Studio open the solution inside the PSVPAD folder.
+
+6. Connect your vita to your PC via USB. 
+
+7. on the vita open the PSM Dev App (Vita needs to be awake)
+
+7.5. In playstation mobile clean and rebuild the solution Ctrl +F8
+
+8. In PSM Studio navigate to run then select your device, this will install and run the vita on your device. Once it is installed you can disconnect yout vita from the computer, you will not need to install the app again unless you delete it. 
+
+9. Run the PSV_Server.exe file located in the folder you unzipped.
+
+10. On the vita applications navigate to configuration - scroll accross to get to the connection settings and enter the ip address of your computer, give the connection a name, then click on add and connect.
+
+11. The server should now show a confirmation message. 
+
+12. Done. 
+
+13. If you own Xpadder you can use the profile provided, or create your own... Sorted. 
+
+*************************************************************************
+		Creating an App Key Ring File 
+*************************************************************************
+
+0. Open Up PSM Publisher Utility. Make sure vita is plugged into PC and on the psm dev app
+
+1. First you will need to generate a publisher key, this can be done by clicking on the button "Generate Publisher Key" Under the Key Management tab. This will require you to sign into your psn account.
+
+2. Now you need to generate a devide seed, this can be done by clicking on the "Generate Device Seed" button
+
+3. Now you need to register the application ID this can be done by clicking the blue + plus sign on the left hand side of the PSM Publisher Utility. A new window will pop up right of the app.xml text box is a button, click on this button and navigate to the PSVPADS app.xml(PSVPAD 1.2/PSVPAD/PSVPAD/app.xml) file and select it and press open... then OK
+
+4.Finally Generate the app key by pressing on the "Generate App Key" Button 
+
+5. Done. You can now close the PSM Publisher utility... 
+============================================
+
+-If you have any problems/ issues please feel free to contact me aj_moore@UnorthodoxGameStusios.co.uk and I'll try and help you out. 
+
+
+
+*************************************************************************
+		Basic Operation Instructions
+*************************************************************************
+This section assumes you've already installed the application on your vita and are ready to go 
+
+TO DO IN DEVELOPMENT
+
+
+
+*************************************************************************
+		           UI Overview
+*************************************************************************
+This section provides an overview of the new UI as of version 1.2.1 
+
+============================================
+PSVPAD UI 
+============================================
+TODO... sorry 
+============================================
+PSV Server UI
+============================================
+
+Main
+*This is the main screen of the application. It shows the ip address of your computer and the current connection status
+
+Key Binds
+*This panel is used for setting up keyboard and mouse binds for the playstation vita. Clicking on a button will bring up a keyboard which will allow you to bind a keyboard or mouse down event to that button on the vita. Note: the clear button on the keyboard will clear any bound key events. 
+
+Configuration 
+*This panel is used to change various settings in regards to the operation of the server software.
+
+Help 
+*Shows a detailed yet long help document
+
+i
+*Info Panel - used to show useful information at a glance about the application 
+
+wifi 
+*Shows the connection status
+
+*************************************************************************
+		           Change Log 
+*************************************************************************
+============================================
+ChangeLog: V1.2.1 ALPHA Update
+============================================
+-New user interface on both server software and companion app 
+-Support has been limited to 1 vita
+-Additional axis's added using the vitas motion sensors (GYRO) X,Y,Z 
+-Basic backtouch support - Adds 2 additional buttons 
+-Additional on screen buttons on vita app, 14 Additional buttons added
+-The server now has the ability to be able to bind input from the psvita to the keyboard and mouse events 
+-Keyboard has been added to vita app
+-Its now possible to save previous connections. 
+-Connection status panel added to vita to show connection status at glance 
+-Key delay added to bound input, currently only applies to buttons, key delay has no effect on axis's 
+-Dead zones added on server software.
+
+
+*************************************************************************
+		           Known Issues 
+*************************************************************************
+-Remember the application is still under development so bugs are expected and the application is not as of yet complete.
+
+*App on vita Shows black screen
+	Rebuild and clean the solution before deploying to vita 
+	
+*Psvita won't connect/ connects then disconnect straight away.
+	-try restarting the server software 
+	
+*Psvita shows as connected but doesn't work?
+	-Make sure you've installed the vjoy driver
+	-Check your firewall isn't blocking the connection (Common issue)
+
+*Windows 8 Error MSB4185 Fix
+	-If you experience this error “Error MSB4185: The function “CurrentUICulture” on type “System.Globalization.CultureInfo” has not been enabled for execution.” 
+
+	*First make sure Playstation suite is closed.
+	*Open the console(cmd) as Administrator, Can be found by searching “cmd”
+	*Run this command: setx MSBUILDENABLEALLPROPERTYFUNCTIONS 1
+	*Relaunch Playstation Suite
+
+Note: Any other issues feel free to contact me at AJ_Moore@UnorthodoxGameStudios.co.uk.
+
+
+
+*************************************************************************
+		               Credit 
+*************************************************************************
+*This application was developed by Allan Moore 
+*Credit should be directed towards headsoft for the vjoy driver used by this application
+
+
+
+*************************************************************************
+		               Contact 
+*************************************************************************
+
+Developer Email: 
+AJ_Moore@UnorthodoxGameStudios.co.uk 
+
+Web Address: 
+www.UnorthodoxGameStudios.co.uk </value>
+  </data>
+</root>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{309C6278-0A9A-434E-AE53-C174A852FA8E}</ProjectGuid>
+    <ProjectTypeGuids>{69878862-DA7D-4DC6-B0A1-50D8FAB4242F};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>PSVPAD</RootNamespace>
+    <AssemblyName>PSVPAD</AssemblyName>
+    <StartupObject>PSVPAD.AppMain</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Sce.PlayStation.Core" />
+    <Reference Include="Sce.PlayStation.HighLevel.UI" />
+    <Reference Include="Sce.PlayStation.HighLevel.GameEngine2D" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppMain.cs" />
+    <Compile Include="..\..\PSVPADUI\MainScreen.composer.cs">
+      <Link>MainScreen.composer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\MainScreen.cs">
+      <Link>MainScreen.cs</Link>
+    </Compile>
+    <Compile Include="Serializer.cs" />
+    <Compile Include="PsvP.cs" />
+    <Compile Include="..\..\PSVPADUI\ConnectionSettings.composer.cs">
+      <Link>ConnectionSettings.composer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\ConnectionSettings.cs">
+      <Link>ConnectionSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\Additional_Button.composer.cs">
+      <Link>Additional_Button.composer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\Additional_Button.cs">
+      <Link>Additional_Button.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\ButtonPanel.composer.cs">
+      <Link>ButtonPanel.composer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\ButtonPanel.cs">
+      <Link>ButtonPanel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\Configuration.composer.cs">
+      <Link>Configuration.composer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\Configuration.cs">
+      <Link>Configuration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\ConnectionStatusPanel.composer.cs">
+      <Link>ConnectionStatusPanel.composer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\ConnectionStatusPanel.cs">
+      <Link>ConnectionStatusPanel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\HelpPanel1.composer.cs">
+      <Link>HelpPanel1.composer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\HelpPanel1.cs">
+      <Link>HelpPanel1.cs</Link>
+    </Compile>
+    <Compile Include="SoundStream.cs" />
+    <Compile Include="..\..\PSVPADUI\KeyboardDialog.composer.cs">
+      <Link>KeyboardDialog.composer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\KeyboardDialog.cs">
+      <Link>KeyboardDialog.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\KeyboardPanel1.composer.cs">
+      <Link>KeyboardPanel1.composer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\KeyboardPanel1.cs">
+      <Link>KeyboardPanel1.cs</Link>
+    </Compile>
+    <Compile Include="KeyboardEvents.cs" />
+    <Compile Include="..\..\PSVPADUI\TBC.composer.cs">
+      <Link>TBC.composer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PSVPADUI\TBC.cs">
+      <Link>TBC.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ShaderProgram Include="shaders\Simple.fcg" />
+    <ShaderProgram Include="shaders\Simple.vcg" />
+    <ShaderProgram Include="shaders\Texture.fcg" />
+    <ShaderProgram Include="shaders\Texture.vcg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Sce\Sce.Psm.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PsmMetadata Include="app.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\PSVPAD.png" />
+    <Content Include="assets\WIFIGREEN.png" />
+    <Content Include="assets\WIFIRED.png" />
+  </ItemGroup>
+</Project>
