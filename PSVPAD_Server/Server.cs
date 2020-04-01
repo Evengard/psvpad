@@ -4,12 +4,16 @@
 // MVID: 99D27C4D-1970-4CC0-8120-423D0430A7B5
 // Assembly location: I:\dev\psvpad_complete\PSVPAD Server\PSV_Server.exe
 
+using Nefarius.ViGEm.Client;
+using Nefarius.ViGEm.Client.Targets;
+using Nefarius.ViGEm.Client.Targets.Xbox360;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
@@ -40,8 +44,9 @@ namespace PSV_Server
         private int clientNum;
         public InputData data;
         public InputData previousInput;
-        private Stopwatch psvpadsw;
         private bool keyRepeat;
+
+        private IXbox360Controller psvpad;
 
         public List<IPAddress> localBroadcasts = null;
 
@@ -256,8 +261,6 @@ namespace PSV_Server
             this.config.gyroXEnabled = false;
             this.config.gyroYEnabled = false;
             this.config.gyroZEnabled = false;
-            this.psvpadsw = new Stopwatch();
-            this.psvpadsw.Start();
             Console.WriteLine("PSV Pad Server Started");
             this.tcpListener = new TcpListener(IPAddress.Any, 3000);
             this.listenThread = new Thread(new ThreadStart(this.ListenForClients));
@@ -270,55 +273,62 @@ namespace PSV_Server
             this.tcpListener.Start();
             while (Program.isRunning)
             {
-                var sockl = new ArrayList { this.tcpListener.Server };
-                Socket.Select(sockl, null, null, 1000000);
-                if (sockl.Contains(this.tcpListener.Server))
+                if (activeClient.Any(c => c == false))
                 {
-                    TcpClient tcpClient = this.tcpListener.AcceptTcpClient();
-                    string str = ((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString();
-                    Console.WriteLine("PsVita IP: " + str);
-                    string localIP = ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
-                    Console.WriteLine("Your IP: " + localIP);
-                    Program.serverForm.ipAddress = localIP;
-                    PSVServer.isConnected = true;
-                    PSVServer.refresh();
-                    if (this.clientIP[0] == str || this.clientIP[1] == str)
+                    var sockl = new ArrayList { this.tcpListener.Server };
+                    Socket.Select(sockl, null, null, 1000000);
+                    if (sockl.Contains(this.tcpListener.Server))
                     {
-                        Console.WriteLine("Error: Client already connected");
-                        Console.WriteLine("This is all a bit buggy... If your having problems restart app (:");
-                        tcpClient.Close();
+                        TcpClient tcpClient = this.tcpListener.AcceptTcpClient();
+                        string str = ((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString();
+                        Console.WriteLine("PsVita IP: " + str);
+                        string localIP = ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
+                        Console.WriteLine("Your IP: " + localIP);
+                        Program.serverForm.ipAddress = localIP;
+                        PSVServer.isConnected = true;
+                        PSVServer.refresh();
+                        int index = 0;
+                        for (index = 0; index < activeClient.Length; index++)
+                        {
+                            if (activeClient[index] == false)
+                            {
+                                break;
+                            }
+                        }
+                        if (activeClient[index] == true)
+                        {
+                            Console.WriteLine("Error: Clients already connected");
+                            Console.WriteLine("Disconnect one of the clients first please!");
+                            tcpClient.Close();
+                        }
+                        else
+                        {
+                            clientIP[index] = str;
+                            tcpClients[index] = tcpClient;
+                            clientTimeOutSW[index] = new Stopwatch();
+                            new Thread(new ParameterizedThreadStart(this.HandleClientComm)).Start((object)index);
+                        }
                     }
                     else
                     {
-                        if (this.clientIP[0] == "")
-                            this.clientNum = 0;
-                        this.clientIP[this.clientNum] = str;
-                        this.tcpClients[this.clientNum] = tcpClient;
-                        if (this.clientTimeOutSW[this.clientNum] == null)
-                            this.clientTimeOutSW[this.clientNum] = new Stopwatch();
-                        this.clientTimeOutSW[this.clientNum].Reset();
-                        this.clientTimeOutSW[this.clientNum].Start();
-                        ++this.clientNum;
-                        if (this.clientNum > 1)
-                            this.clientNum = 0;
-                        new Thread(new ParameterizedThreadStart(this.HandleClientComm)).Start((object)tcpClient);
+                        UdpClient udpClient = new UdpClient();
+                        //udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, 11111));
+                        byte[] sendbuf = Encoding.ASCII.GetBytes("PSVPAD_1.5.1");
+                        foreach (var localBroadcast in localBroadcasts)
+                        {
+                            udpClient.Send(sendbuf, sendbuf.Length, new IPEndPoint(localBroadcast, 11111));
+                        }
+
+                        /*
+                        Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                        byte[] sendbuf = Encoding.ASCII.GetBytes("PSVPAD_1.5.1");
+                        IPEndPoint ep = new IPEndPoint(IPAddress.Broadcast, 11111);
+                        s.SendTo(sendbuf, ep);*/
                     }
                 }
                 else
                 {
-                    UdpClient udpClient = new UdpClient();
-                    //udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, 11111));
-                    byte[] sendbuf = Encoding.ASCII.GetBytes("PSVPAD_1.5.1");
-                    foreach (var localBroadcast in localBroadcasts)
-                    {
-                        udpClient.Send(sendbuf, sendbuf.Length, new IPEndPoint(localBroadcast, 11111));
-                    }
-
-                    /*
-                    Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                    byte[] sendbuf = Encoding.ASCII.GetBytes("PSVPAD_1.5.1");
-                    IPEndPoint ep = new IPEndPoint(IPAddress.Broadcast, 11111);
-                    s.SendTo(sendbuf, ep);*/
+                    Thread.Sleep(1000);
                 }
             }
         }
@@ -332,28 +342,35 @@ namespace PSV_Server
             }
             PSVServer.isConnected = false;
             PSVServer.refresh();
+            this.activeClient[clientID] = false;
+            this.tcpClients[clientID] = null;
+            this.clientTimeOutSW[clientID] = null;
             this.clientIP[clientID] = "";
             client.Close();
         }
 
-        private void HandleClientComm(object client)
+        private void HandleClientComm(object idx)
         {
-            TcpClient client1 = (TcpClient)client;
+            int index = (int)idx;
+            activeClient[index] = true;
+            TcpClient client1 = tcpClients[index];
             NetworkStream stream = client1.GetStream();
             string str = ((IPEndPoint)client1.Client.RemoteEndPoint).Address.ToString();
             stream.WriteTimeout = 200;
-            int index = !(str == this.clientIP[0]) ? 1 : 0;
             byte[] numArray = new byte[256];
             Console.WriteLine("Connected to Client...");
-            this.psvpadsw.Reset();
-            this.psvpadsw.Start();
+            var vigem = new ViGEmClient();
+            this.psvpad = vigem.CreateXbox360Controller();
+            psvpad.Connect();
+            psvpad.AutoSubmitReport = false;
+            psvpad.ResetReport();
             while (Program.isRunning)
             {
                 if (this.clientTimeOutSW[index].ElapsedMilliseconds > (long)this.config.clientTimeOut)
                 {
                     Console.WriteLine("Connection to Client Timed Out");
-                    this.disconnectClient(index, client1);
-                    return;
+                    //this.disconnectClient(index, client1);
+                    break;
                 }
                 int num = 0;
                 try
@@ -379,6 +396,33 @@ namespace PSV_Server
                     this.data = this.toInputData(numArray);
                     if (this.data != null)
                     {
+                        psvpad.SetButtonState(Xbox360Button.Left, data.KeyStates.Button_DLeft);
+                        psvpad.SetButtonState(Xbox360Button.Right, data.KeyStates.Button_DRight);
+                        psvpad.SetButtonState(Xbox360Button.Up, data.KeyStates.Button_DUp);
+                        psvpad.SetButtonState(Xbox360Button.Down, data.KeyStates.Button_DDown);
+
+                        psvpad.SetButtonState(Xbox360Button.X, data.KeyStates.Button_Square);
+                        psvpad.SetButtonState(Xbox360Button.Y, data.KeyStates.Button_Triangle);
+                        psvpad.SetButtonState(Xbox360Button.A, data.KeyStates.Button_Cross);
+                        psvpad.SetButtonState(Xbox360Button.B, data.KeyStates.Button_Circle);
+
+                        psvpad.SetButtonState(Xbox360Button.Start, data.KeyStates.Button_Start);
+                        psvpad.SetButtonState(Xbox360Button.Back, data.KeyStates.Button_Select);
+
+                        psvpad.SetAxisValue(Xbox360Axis.LeftThumbX, (short)(this.data.lx * 32767f));
+                        psvpad.SetAxisValue(Xbox360Axis.LeftThumbY, (short)(-this.data.ly * 32767f));
+
+                        psvpad.SetAxisValue(Xbox360Axis.RightThumbX, (short)(this.data.rx * 32767f));
+                        psvpad.SetAxisValue(Xbox360Axis.RightThumbY, (short)(-this.data.ry * 32767f));
+
+                        psvpad.SetButtonState(Xbox360Button.LeftShoulder, this.data.KeyStates.Button_L);
+                        psvpad.SetButtonState(Xbox360Button.RightShoulder, this.data.KeyStates.Button_R);
+
+                        psvpad.SetSliderValue(Xbox360Slider.LeftTrigger, Convert.ToByte((this.data.KeyStates.Front_Left_Touch_B13Btn ? 1u : 0u) * 255u));
+                        psvpad.SetSliderValue(Xbox360Slider.RightTrigger, Convert.ToByte((this.data.KeyStates.Front_Right_Touch_B14Btn ? 1u : 0u) * 255u));
+
+                        psvpad.SubmitReport();
+
                         if (this.config.gyroXEnabled)
                         {
                         }
@@ -398,11 +442,6 @@ namespace PSV_Server
                             this.Input.sendKeyUp((uint)this.data.keyboardDat);
                         }
                         this.checkBinds(this.data);
-                    }
-                    if (this.psvpadsw.ElapsedMilliseconds > 240000L)
-                    {
-                        this.psvpadsw.Reset();
-                        this.psvpadsw.Start();
                     }
                 }
             }
